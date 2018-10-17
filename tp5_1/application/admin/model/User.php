@@ -31,7 +31,7 @@ class User extends Common
 	 */
     public function groups()
     {
-        return $this->belongsToMany('group', '__ADMIN_ACCESS__', 'group_id', 'user_id');
+        return $this->belongsToMany('group', 'admin_access', 'group_id', 'user_id');
     }
 
     /**
@@ -314,6 +314,8 @@ class User extends Common
             $map['status'] = 1;
     		$menusList = Db::name('admin_menu')->where($map)->order('sort asc')->select();
     	} else {
+    		// $admin_access=Db::name('admin_access')->where('user_id='.$u_id)->find();
+    		 //$groups =$admin_access['group_id'];
     		$groups = $this->get($u_id)->groups;
             $ruleIds = [];
     		foreach($groups as $k => $v) {
